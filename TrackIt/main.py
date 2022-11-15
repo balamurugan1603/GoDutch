@@ -27,6 +27,8 @@ def create_table():
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
+    if current_user.experiments is None:
+        return "No Experiments found"
     experiments = ast.literal_eval(current_user.experiments)["experiments"]
     return render_template("dashboard.html", experiments = experiments)
 

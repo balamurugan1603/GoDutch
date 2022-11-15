@@ -6,9 +6,17 @@
     <link rel="stylesheet" href="../static/experiment.css" />
   </head>
   <body onload="plotChart({{ devices }})">
-    {% for device in devices %}
-    <div id="{{ device.device_name }}" class="container"></div>
-    {% endfor %}
+    <header>
+      <ul>
+        <li><a href="{{ url_for('logout') }}" style="margin-right: 30px">Logout</a></li>
+        <li style="float: left"><h6 class="brand-name">.TrackIt</h6></li>
+      </ul>
+    </header>
+    <div class="grid-container">
+      {% for device in devices %}
+        <div id="{{ device.device_name }}" class="container"></div>
+      {% endfor %}
+    </div>
     <script>
       anychart.theme(anychart.themes.darkGlamour);
 
