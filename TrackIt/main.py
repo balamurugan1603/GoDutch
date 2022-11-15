@@ -5,6 +5,7 @@ from models import UserModel, login, db
 import ast
 import json
 
+
 app = Flask(__name__)
 authentication = HTTPBasicAuth()
 
@@ -17,15 +18,31 @@ login.init_app(app)
 
 login.login_view = "auth"
 
+
 @app.before_first_request
 def create_table():
     db.create_all()
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
-    return f"{current_user.username}"
+    experiments = ast.literal_eval(current_user.experiments)["experiments"]
+    return render_template("dashboard.html", experiments = experiments)
+
+
+@app.route("/experiment", methods=["GET"])
+@login_required
+def experiment():
+    body = request.args
+    experiments = ast.literal_eval(current_user.experiments)["experiments"]
+    exp = None
+    for experiment in experiments:
+        if str(experiment["id"]) == body["id"]:
+            exp = experiment
+    if exp is None:
+        return "404"
+    return render_template("experiment.html", devices = exp["devices"])
 
 
 @app.route("/auth", methods=["GET", "POST"])
@@ -70,12 +87,14 @@ def logout():
 @app.route('/experiments/commit', methods=["POST"])
 @authentication.login_required
 def commit_experiment():
-    # experiment_name
-    # device_name
-    # metrics
     # {
     #   experiments: [
-    #   experiment_name: "Test"
+    #   id: 56123,
+    #   name: "LR-HRD",
+    #   description: "Linear regression on house rent dataset",
+    #   active: 1,
+    #   start: "13-11-2022 10:52:12"
+    #   end: "",
     #   devices: [
     #       {
     #           device_name: "0",
@@ -87,19 +106,27 @@ def commit_experiment():
     body = request.get_json()
     user = UserModel.query.filter_by(email=authentication.username()).first()
     if user:
-        experiments = ast.literal_eval(user.experiments)
+        if user.experiments:
+            experiments = ast.literal_eval(user.experiments)
+        else:
+            experiments = None
         if experiments is None:
             experiments = {
                 "experiments": [
                     {
-                        "experiment_name": body["experiment_name"],
+                        "id": body["id"],
+                        "name": body["name"],
+                        "description": body["description"],
+                        "active": body["active"],
+                        "start": body["start"],
+                        "end": body["end"],
                         "devices": []
                     }
                 ]
             }
-        
+
         for i in range(len(experiments["experiments"])):
-            if experiments["experiments"][i]["experiment_name"] == body["experiment_name"]:
+            if experiments["experiments"][i]["id"] == body["id"]:
                 experiments["experiments"][i]["devices"].append({
                     "device_name": body["device_name"],
                     "metrics": body["metrics"]
@@ -107,14 +134,19 @@ def commit_experiment():
             else:
                 experiments["experiments"].append({
                     {
-                        "experiment_name": body["experiment_name"],
+                        "id": body["id"],
+                        "name": body["name"],
+                        "description": body["description"],
+                        "active": body["active"],
+                        "start": body["start"],
+                        "end": body["end"],
                         "devices": [{
                                 "device_name": body["device_name"],
                                 "metrics": body["metrics"]
                             }]
                     }
             })
-                
+
         new_user = UserModel(
             id = user.id,
             email = user.email, 
