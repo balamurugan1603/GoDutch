@@ -2,7 +2,45 @@ import socket
 from _thread import *
 import pandas as pd
 import numpy as np
+import argparse
+import requests
+from requests.auth import HTTPBasicAuth
+from datetime import datetime
 from ml.LinearRegression import DistributedLinearRegression
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--email", type=str)
+parser.add_argument("--password", type=str)
+parser.add_argument("--exp_name", type=str)
+parser.add_argument("--exp_id", type=int)
+parser.add_argument("--desc", type=str)
+
+args = parser.parse_args()
+dateformat = r"%d-%m-%Y %H:%M:%S"
+
+body = {
+    "device_type": 1,
+    "id": args.exp_id,
+    "name": args.exp_name,
+    "description": args.desc,
+    "active": 1,
+    "start": datetime.now().strftime(dateformat)
+}
+
+url = "http://172.18.132.255:5000/experiments/commit"
+response = requests.post(
+    url,
+    json = body,
+    auth = HTTPBasicAuth(
+        args.email, args.password
+    )
+)
+
+if response.content != b'1':
+    print("Unsuccessful !")
+    print("Run the script again !")
+    exit()
 
 
 def recvall(sock):
@@ -89,4 +127,15 @@ print(theta)
 print("Closing server")
 ServerSideSocket.close()
 
-# print("The time of execution of above program is :", (end - start) * 10**3, "ms")
+body["active"] = 0
+body["end"] = datetime.now().strftime(dateformat)
+
+response = requests.post(
+    url,
+    json = body,
+    auth = HTTPBasicAuth(
+        args.email, args.password
+    )
+)
+
+print("Execution successful !")

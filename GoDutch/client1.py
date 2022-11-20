@@ -1,3 +1,3 @@
-from worker.Client import create_client
+from worker.Node import create_node
 
-create_client(2004, 12345)
+create_node(2004, 12345)
