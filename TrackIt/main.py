@@ -86,6 +86,18 @@ def logout():
 
 # APIs
 
+@app.route('/experiments/getExperiments', methods=["GET"])
+@authentication.login_required
+def get_experiments():
+    user = UserModel.query.filter_by(email=authentication.username()).first()
+    if user:
+        if user.experiments:
+            experiments = ast.literal_eval(user.experiments)
+        else:
+            experiments = None
+    return jsonify(experiments)
+
+
 @app.route('/experiments/commit', methods=["POST"])
 @authentication.login_required
 def commit_experiment():
@@ -112,42 +124,41 @@ def commit_experiment():
             experiments = ast.literal_eval(user.experiments)
         else:
             experiments = None
+        
         if experiments is None:
             experiments = {
-                "experiments": [
-                    {
-                        "id": body["id"],
-                        "name": body["name"],
-                        "description": body["description"],
-                        "active": body["active"],
-                        "start": body["start"],
-                        "end": body["end"],
-                        "devices": []
-                    }
-                ]
+                "experiments": []
             }
 
+        exist = False
         for i in range(len(experiments["experiments"])):
             if experiments["experiments"][i]["id"] == body["id"]:
-                experiments["experiments"][i]["devices"].append({
-                    "device_name": body["device_name"],
-                    "metrics": body["metrics"]
-                })
-            else:
+                # Device Type
+                # 0 - Worker
+                # 1 - Master
+                if body["device_type"] == 0:
+                    experiments["experiments"][i]["devices"].append({
+                        "device_name": body["device_name"],
+                        "metrics": body["metrics"]
+                    })
+                else:
+                    if "end" in body.keys():
+                        experiments["experiments"][i]["active"] = body["active"]
+                        experiments["experiments"][i]["end"] = body["end"]
+                    # else:
+                    #     experiments["experiments"][i]["active"] = body["active"]
+                exist = True
+
+        if exist != True:
                 experiments["experiments"].append({
-                    {
-                        "id": body["id"],
-                        "name": body["name"],
-                        "description": body["description"],
-                        "active": body["active"],
-                        "start": body["start"],
-                        "end": body["end"],
-                        "devices": [{
-                                "device_name": body["device_name"],
-                                "metrics": body["metrics"]
-                            }]
-                    }
-            })
+                            "id": body["id"],
+                            "name": body["name"],
+                            "description": body["description"],
+                            "active": body["active"],
+                            "start": body["start"],
+                            "end": "",
+                            "devices": []
+                    })
 
         new_user = UserModel(
             id = user.id,
@@ -163,17 +174,17 @@ def commit_experiment():
         db.session.commit()
 
         updated = UserModel.query.filter_by(email=authentication.username()).first()
-        resp = {
-            "id" : updated.id,
-            "email" : updated.email, 
-            "username" : updated.username, 
-            "experiments" : experiments,
-            "password" : updated.password_hash
-        }
+        # resp = {
+        #     "id" : updated.id,
+        #     "email" : updated.email, 
+        #     "username" : updated.username, 
+        #     "experiments" : experiments,
+        #     "password" : updated.password_hash
+        # }
 
-        return jsonify({"response": f"{resp}"})
+        return "1" # Successful
 
-    return jsonify({"response": "Update Unsuccessful !"})
+    return "0" # Unsuccessful
 
 
 @authentication.verify_password
@@ -188,4 +199,4 @@ def authenticate(email, password):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=5000)
+    app.run(host="0.0.0.0", port=5000)

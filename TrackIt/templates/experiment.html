@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Line Chart JS</title>
+    <title>Experiment</title>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
     <script src="https://cdn.anychart.com/themes/2.0.0/dark_glamour.min.js"></script>
     <link rel="stylesheet" href="../static/experiment.css" />
@@ -8,13 +8,17 @@
   <body onload="plotChart({{ devices }})">
     <header>
       <ul>
-        <li><a href="{{ url_for('logout') }}" style="margin-right: 30px">Logout</a></li>
+        <li>
+          <a href="{{ url_for('logout') }}" style="margin-right: 30px"
+            >Logout</a
+          >
+        </li>
         <li style="float: left"><h6 class="brand-name">.TrackIt</h6></li>
       </ul>
     </header>
     <div class="grid-container">
       {% for device in devices %}
-        <div id="{{ device.device_name }}" class="container"></div>
+      <div id="{{ device.device_name }}" class="container"></div>
       {% endfor %}
     </div>
     <script>
