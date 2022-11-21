@@ -24,7 +24,7 @@ def create_table():
     db.create_all()
 
 
-@app.route("/dashboard", methods=["GET", "POST"])
+@app.route("/dashboard", methods=["GET"])
 @login_required
 def dashboard():
     if current_user.experiments is None:

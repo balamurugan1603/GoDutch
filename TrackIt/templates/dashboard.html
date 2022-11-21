@@ -15,14 +15,21 @@
             <li style="float: left"><h6 class="brand-name">.TrackIt</h6></li>
           </ul>
         </header>
-          <div class="grid-container" onload="updateStatus({{ experiments }})">
+          <div class="grid-container" >
                     {% for experiment in experiments %}
-                        <div class="card" id="{{ experiment.id }}" onclick="cardClickEvent({{ experiment.id }})">
-                            <span class="dot-red"></span>
+                        <div class="card" onclick="cardClickEvent('{{ experiment.id }}')">
+                          {% set class_txt = 'dot-red' %}
+                          {% if experiment.active %}
+                            {% set class_txt = 'dot-yellow' %}
+                          {% else %}
+                            {% set class_txt = 'dot-green' %}
+                           {% endif %}
+                            <span id="{{ experiment.id }}" class={{class_txt}}></span>
                             <h6 style="padding: 0; margin:0; padding-bottom: 10px;"># {{ experiment.id }}</h5>
                             <h3 style="padding: 0; margin:0; padding-bottom: 10px;">{{ experiment.name }}</h3>
                             <h5 style="padding: 0; margin:0; padding-bottom: 10px;">{{ experiment.description }}</h5>
                             <h4 style="padding: 0; margin:0;">Started : {{ experiment.start }}</h4>
+
                         </div> 
                     {% endfor %}
           </div>
@@ -33,18 +40,20 @@
           <input type="hidden" id="url_id" value="{{ url_for('experiment') }}">
 
           <script>
-            /*var updateStatus = function(experiments) {
+            var updateStatus = function(experiments) {
+              console.log("Inga vanten");
+              console.log("kk",experiments);
               for(var i=0; i<experiments.length; i++) {
-                var newSpan = document.createElement('span');
-                if (experiments[i].status == "1") {
-                  newSpan.setAttribute('class', 'dot-green');
+                var class_txt = "dot-red";
+                if (experiments[i].active == 1) {
+                  class_txt = "dot-green";
                 }
-                else if (experiments[i].status == "0") {
-                  newSpan.setAttribute('class', 'dot-yellow');
+                else if (experiments[i].active == 0) {
+                  class_txt = "dot-yellow";
                 }
-                document.getElementById(experiments[i].id).appendChild(newSpan);  
+                document.getElementById(experiments[i].id).setAttribute("class", class_txt);  
               }
-            }*/
+            }
 
             var cardClickEvent = function(id) {
                 window.location.assign(document.querySelector('#url_id').value + "?id=" + id);
