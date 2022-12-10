@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/auth.css" />
+    <title>Login</title>
+  </head>
+
+  <body>
+    <div class="fg-card">
+      <div class="fg-card-left">
+        <div class="line" style="margin-top: 120px"></div>
+        <h1 class="brand-name">.TrackIt</h1>
+        <div class="line"></div>
+        <h1
+          style="
+            margin-top: 30px;
+            margin-left: 30px;
+            font-size: 44px;
+            color: rgb(49, 49, 49);
+          "
+        >
+          # OneStopSolution
+        </h1>
+        <div class="typewriter">
+          <h1 style="font-size: 25px; color: rgb(76, 76, 76)">
+            to track your experiments!
+          </h1>
+        </div>
+      </div>
+
+      <div class="fg-card-right">
+        <div class="button-box">
+          <div id="btn"></div>
+          <button type="button" class="toggle-btn" onclick="register()">
+            Register
+          </button>
+          <button type="button" class="toggle-btn" onclick="login()">
+            Login
+          </button>
+        </div>
+        <div class="social-icons">
+          <img class="social-icon" src="../static/gp.png" alt="google" />
+        </div>
+        <form
+          class="input-group"
+          id="register"
+          style="margin-top: -20px"
+          action=""
+          method="POST"
+        >
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Username"
+            name="username"
+            required
+          />
+          <input
+            type="email"
+            class="input-field"
+            placeholder="Email"
+            name="email"
+            required
+          />
+          <input
+            type="password"
+            class="input-field"
+            placeholder="Password"
+            name="password"
+            required
+          />
+          <input
+            type="checkbox"
+            class="check-box"
+            style="margin-left: -140px"
+          /><span style="margin-top: 30px">Agree to terms & conditions</span>
+          <input type="submit" class="submit-btn" value="Register" />
+        </form>
+        <form
+          class="input-group"
+          id="login"
+          style="margin-top: -50px"
+          action=""
+          method="POST"
+        >
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Email"
+            name="email"
+            required
+          />
+          <input
+            type="password"
+            class="input-field"
+            placeholder="Password"
+            name="password"
+            required
+          />
+          <input
+            type="checkbox"
+            class="check-box"
+            style="margin-left: -110px"
+          /><span style="margin-top: 30px">Remember Password</span>
+          <input type="submit" class="submit-btn" value="Login" />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      var x = document.getElementById("login");
+      var y = document.getElementById("register");
+      var z = document.getElementById("btn");
+
+      function register() {
+        x.style.left = "450px"; //-450px
+        y.style.left = "0px"; //0px
+        z.style.left = "0px";
+      }
+
+      function login() {
+        x.style.left = "0px"; //0
+        y.style.left = "-450px"; //450
+        z.style.left = "110px"; //0
+      }
+    </script>
+  </body>
+</html>

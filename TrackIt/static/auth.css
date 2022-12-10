@@ -1,0 +1,204 @@
+body {
+    height: 100vh;
+    width: auto;
+    margin: 0%;
+    background: linear-gradient(to right, rgb(89, 89, 244), rgb(242, 105, 128));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+span {
+    color: rgb(216, 216, 216);
+    font-size: 12px;
+    position: absolute;
+}
+
+.fg-card {
+    width: 60rem;
+    height: 30rem;
+    font-family: sans-serif;
+    border-style: dashed;
+    border-color: rgba(0, 0, 0, 0.25);
+    border-width: 2.5em;
+    border-radius: 1rem;
+}
+
+.fg-card-left {
+    width: 50%;
+    height: 30rem;
+    float: left;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: white;
+}
+
+.fg-card-right {
+    width: 50%;
+    height: 30rem;
+    float: right;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.button-box {
+    width: 220px;
+    height: 32px;
+    margin: 40px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff7bff4a;
+    border-radius: 1rem;
+}
+
+.toggle-btn {
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    color: white;
+    font-weight: bold;
+}
+
+.social-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+}
+
+.input-group {
+    display: inline-block;
+    padding: 10px 30px;
+    width: 280px;
+    position: relative;
+    transition: .5s;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid white;
+    outline: none;
+    background: transparent;
+    color: white;
+}
+
+.submit-btn {
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right, #ff0055db, #ffaa00db);
+    border: 0;
+    border-radius: 1rem;
+    outline: none;
+    box-shadow: 0 0 20px 9px #ff7bff4a;
+    color: white;
+    font-weight: bold;
+}
+
+.check-box {
+    margin: 30px 10px 30px 0;
+}
+
+.brand-name {
+    height: fit-content;
+    width: fit-content;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 60px;
+    font-weight: 700;
+    background: linear-gradient(to right, #ff0055db, #ffaa00db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.line {
+    height: 1px;
+    margin: 0%;
+    padding: 0%;
+    margin-left: 30px;
+    width: 300px;
+    background: linear-gradient(to right, #ff0055db, #ffaa00db);
+}
+
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background: linear-gradient(to right, #ff0055db, #ffaa00db);
+    border-radius: 1rem;
+    transition: .5s;
+}
+
+#login {
+    left: 450px;
+    top: -190px;
+}
+
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: white;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: white;
+}
+
+.typewriter h1 {
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange;
+    /* The typwriter cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0px 30px;
+    /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em;
+    /* Adjust as needed */
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 85%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: orange;
+    }
+}

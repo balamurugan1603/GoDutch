@@ -1,0 +1,105 @@
+      
+body{ 
+    width: 100%; height: 100vh; margin: 0; padding: 0; 
+    background: linear-gradient(to right, rgb(89, 89, 244), rgb(242, 105, 128));
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.079));
+}
+
+li {
+    float: right;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background: rgba(255, 255, 255, 0.659);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    box-shadow: 0 0 30px 9px #fff3ffaf;
+    border-radius: .5rem;
+}
+
+.footer {
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    margin-top: 19px;
+}
+
+.brand-name {
+    height: fit-content;
+    width: fit-content;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    margin-top: 5px;
+    margin-left: 30px;
+    font-size: 30px;
+    font-weight: 700;
+    background: linear-gradient(to right, #ff0055db, #ffaa00db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+  
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+  
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.container   {
+    padding: 20px;
+    background: #263238;
+    width: 300px;
+    height: 300px;
+    border-radius: 1rem;
+}
+
+.anychart-credits {
+    display: none;
+}
+
+.grid-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    padding: 0;
+    margin: 50px;
+    row-gap: 40px;
+    column-gap: 60px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}

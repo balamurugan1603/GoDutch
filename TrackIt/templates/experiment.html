@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Experiment</title>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/themes/2.0.0/dark_glamour.min.js"></script>
+    <link rel="stylesheet" href="../static/experiment.css" />
+  </head>
+  <body onload="plotChart({{ devices }})">
+    <header>
+      <ul>
+        <li>
+          <a href="{{ url_for('logout') }}" style="margin-right: 30px"
+            >Logout</a
+          >
+        </li>
+        <li>
+          <a
+            href="http://127.0.0.1:5000/download"
+            onclick="location.href=this.href+'?exp_id='+{{ exp_id }};return false;"
+          >
+            Download
+          </a>
+        </li>
+        <li style="float: left"><h6 class="brand-name">.TrackIt</h6></li>
+      </ul>
+    </header>
+    <div class="grid-container">
+      {% for device in devices %}
+      <div id="{{ device.device_name }}" class="container"></div>
+      {% endfor %}
+    </div>
+
+    <footer>
+      <div class="footer"></div>
+    </footer>
+    <script>
+      anychart.theme(anychart.themes.darkGlamour);
+
+      var plotChart = function (devices) {
+        for (var i = 0; i < devices.length; i++) {
+          var data = [];
+
+          for (var j = 1; j <= devices[i].metrics.length; j++) {
+            data.push([j, devices[i].metrics[j - 1]]);
+          }
+
+          var dataSet = anychart.data.set(data);
+          var SeriesData = dataSet.mapAs({ x: 0, value: 1 });
+          var chart = anychart.line();
+          var Series = chart.line(SeriesData);
+
+          Series.name("Loss over Epochs");
+
+          chart.legend().enabled(true);
+          chart.title(devices[i].device_name);
+          chart.yAxis().title("ERROR");
+          chart.xAxis().title("EPOCHS");
+          chart.container(devices[i].device_name);
+          chart.background().stroke(null);
+          chart.draw();
+        }
+      };
+    </script>
+  </body>
+</html>
