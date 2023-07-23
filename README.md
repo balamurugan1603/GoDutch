@@ -1,4 +1,6 @@
-🚧 Under development 🚧
+Distributed Machine Learning environment built using socket programming, TCP, and Flask.
+Run ML experiments in a distributed manner by using GoDutch and centrally monitor the logs using the TrackIt web app.
+Currently supports - Linear Regression
 
 # GoDutch
 
